@@ -4,4 +4,6 @@
     <string name="send">Send</string>
     <string name="connect">Connect</string>
     <string name="waiting">Waiting for connection</string>
+    <string name="connection_established">Connection Established</string>
+    <string name="error_connecting">Error connecting</string>
 </resources>
