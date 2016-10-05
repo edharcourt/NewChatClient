@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">NewChatClient</string>
+    <string name="ip_address">IP Address</string>
+    <string name="send">Send</string>
+    <string name="connect">Connect</string>
+    <string name="waiting">Waiting for connection</string>
+</resources>
