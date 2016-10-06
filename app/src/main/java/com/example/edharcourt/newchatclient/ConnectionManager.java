@@ -37,6 +37,11 @@ public class ConnectionManager {
         this.connected = false;
         this.act = act;
         this.uiThread = uiThread;
+        this.ipaddr = null;
+    }
+
+    public void setIpaddr(String ipaddr) {
+        this.ipaddr = ipaddr;
     }
 
     Runnable server_thread = new Runnable() {
@@ -106,6 +111,10 @@ public class ConnectionManager {
     Runnable client_thread = new Runnable() {
         @Override
         public void run() {
+
+            if (ipaddr == null)
+                return;
+
             uiThread.post(new Runnable() {
                 @Override
                 public void run() {
