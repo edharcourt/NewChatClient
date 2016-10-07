@@ -54,6 +54,8 @@ public class MainActivity extends Activity {
         });
 
         new Thread(cm.server_thread).start();
+        new Thread(cm.reader).start();
+        new Thread(cm.writer).start();
     }
 
 
