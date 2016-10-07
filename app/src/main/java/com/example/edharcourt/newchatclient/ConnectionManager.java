@@ -104,7 +104,9 @@ public class ConnectionManager {
 
             acting_as_server = true;
             connected = true;
-            notifyAll();
+            synchronized (ConnectionManager.this) {
+                ConnectionManager.this.notifyAll();
+            }
         }
     };
 
@@ -160,7 +162,7 @@ public class ConnectionManager {
             acting_as_server = false;
             connected = true;
             synchronized (ConnectionManager.this) {
-                notifyAll();
+                ConnectionManager.this.notifyAll();
             }
         }
     };
