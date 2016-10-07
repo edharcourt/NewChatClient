@@ -50,6 +50,14 @@ public class ConnectionManager {
         public void run() {
 
             try {
+
+                uiThread.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        act.receiving.append(act.getString(R.string.waiting));
+                    }
+                });
+
                 server_sock = new ServerSocket(12347);
                 sock = server_sock.accept();
                 from = new BufferedReader(
