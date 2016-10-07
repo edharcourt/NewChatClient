@@ -187,14 +187,23 @@ public class ConnectionManager {
                     }
                 }
 
+            Log.v(LOG_TAG, "reader thread started");
 
             while (true) {
-                Log.v(LOG_TAG, "reader thread started");
+
                 try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
+                    final String line = from.readLine();
+                    uiThread.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            act.receiving.append(line);
+                        }
+                    });
+
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
+
             }
         }
     };
@@ -211,10 +220,15 @@ public class ConnectionManager {
                     }
                 }
 
+            Log.v(LOG_TAG, "writer thread started");
+            int i = 0;
+
             while (true) {
-                Log.v(LOG_TAG, "writer thread started");
+                // generate between a 0.5 sec and 2.5 sec delay
+                int delay = (int) (Math.random()*2000) + 500;
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(delay);
+                    to.println(i++);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
