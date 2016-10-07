@@ -45,7 +45,7 @@ public class MainActivity extends Activity {
                     return;
                 }
 
-                if (cm == null) {
+                if (cm != null) {
                     cm.setIpaddr(ip_address.getText().toString());
                     new Thread(cm.client_thread).start();
                 }
@@ -53,7 +53,6 @@ public class MainActivity extends Activity {
         });
 
         new Thread(cm.server_thread).start();
-
     }
 
 

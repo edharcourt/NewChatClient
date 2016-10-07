@@ -123,7 +123,7 @@ public class ConnectionManager {
             });
 
             try {
-                sock = new Socket(ipaddr, 12346);
+                sock = new Socket(ipaddr, 12347);
                 from = new BufferedReader(
                            new InputStreamReader(sock.getInputStream()));
 
