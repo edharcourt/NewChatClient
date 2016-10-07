@@ -47,6 +47,7 @@ public class MainActivity extends Activity {
 
                 if (cm != null) {
                     cm.setIpaddr(ip_address.getText().toString());
+                    cm.setIpaddr("10.60.28.140");
                     new Thread(cm.client_thread).start();
                 }
             }
