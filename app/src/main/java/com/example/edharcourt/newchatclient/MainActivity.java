@@ -27,7 +27,9 @@ public class MainActivity extends Activity {
         receiving = (TextView) findViewById(R.id.receiving_text);
         uiThreadHandler = new Handler();
 
-        ip_address.setOnClickListener(new View.OnClickListener() {
+        cm = new ConnectionManager(MainActivity.this, uiThreadHandler);
+
+        connect.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
@@ -35,7 +37,7 @@ public class MainActivity extends Activity {
                 // Fire off a thread that tries to connect to a server
 
                 // Don't create a connection if we are already connected
-                if (cm != null && cm.server_sock.isBound()) {
+                if (cm != null && cm.connected) {
                     Toast.makeText(
                             MainActivity.this,
                             "Already connected",
@@ -44,15 +46,13 @@ public class MainActivity extends Activity {
                 }
 
                 if (cm == null) {
-                    cm = new ConnectionManager(MainActivity.this, uiThreadHandler,
-                            ip_address.getText().toString());
+                    cm.setIpaddr(ip_address.getText().toString());
                     new Thread(cm.client_thread).start();
                 }
             }
         });
 
-
-
+        new Thread(cm.server_thread).start();
 
     }
 
