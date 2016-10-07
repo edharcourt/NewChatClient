@@ -159,8 +159,58 @@ public class ConnectionManager {
 
             acting_as_server = false;
             connected = true;
-            notifyAll();
+            synchronized (ConnectionManager.this) {
+                notifyAll();
+            }
         }
     };
+
+    Runnable reader = new Runnable() {
+        @Override
+        public void run() {
+            while (!connected)
+                synchronized (ConnectionManager.this) {
+                    try {
+                        ConnectionManager.this.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+
+            while (true) {
+                Log.v(LOG_TAG, "reader thread started");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    };
+
+    Runnable writer = new Runnable() {
+        @Override
+        public void run() {
+            while (!connected)
+                synchronized (ConnectionManager.this) {
+                    try {
+                        ConnectionManager.this.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            while (true) {
+                Log.v(LOG_TAG, "writer thread started");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    };
+
 
 }
