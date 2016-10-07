@@ -50,7 +50,7 @@ public class ConnectionManager {
         public void run() {
 
             try {
-                server_sock = new ServerSocket(12346);
+                server_sock = new ServerSocket(12347);
                 sock = server_sock.accept();
                 from = new BufferedReader(
                         new InputStreamReader(sock.getInputStream()));
