@@ -26,7 +26,6 @@ public class ConnectionManager {
     Socket sock = null;
     ServerSocket server_sock = null;
 
-    // if this is acting as a client
     BufferedReader from = null;
     PrintWriter to = null;
     boolean acting_as_server = false;
@@ -178,6 +177,8 @@ public class ConnectionManager {
     Runnable reader = new Runnable() {
         @Override
         public void run() {
+
+            // wiat for a connection
             while (!connected)
                 synchronized (ConnectionManager.this) {
                     try {
@@ -208,9 +209,12 @@ public class ConnectionManager {
         }
     };
 
+
     Runnable writer = new Runnable() {
         @Override
         public void run() {
+
+            // wait for a connection
             while (!connected)
                 synchronized (ConnectionManager.this) {
                     try {
