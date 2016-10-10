@@ -187,6 +187,8 @@ public class ConnectionManager {
     Runnable reader = new Runnable() {
         @Override
         public void run() {
+
+            // wiat for a connection
             while (!connected)
                 synchronized (ConnectionManager.this) {
                     try {
@@ -217,9 +219,12 @@ public class ConnectionManager {
         }
     };
 
+
     Runnable writer = new Runnable() {
         @Override
         public void run() {
+
+            // wait for a connection
             while (!connected)
                 synchronized (ConnectionManager.this) {
                     try {
