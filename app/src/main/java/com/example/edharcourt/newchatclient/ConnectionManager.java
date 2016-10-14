@@ -28,10 +28,16 @@ public class ConnectionManager {
     // of the device we "called".
     String ipaddr = null;
 
+    // This is the socker connecting the two devices.
     Socket sock = null;
+
+    // non null if this is acting as a server
     ServerSocket server_sock = null;
 
+    // reading from otyher device
     BufferedReader from = null;
+
+    // printing to other device
     PrintWriter to = null;
 
     boolean acting_as_server = false;
