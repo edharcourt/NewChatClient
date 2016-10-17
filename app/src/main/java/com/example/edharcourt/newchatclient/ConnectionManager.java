@@ -84,6 +84,7 @@ public class ConnectionManager {
 
                 // fine, might have been closed because we
                 // are running as the client and not the server
+                // That is, other thread may have called server_sock.close()
                 if (connected)
                     return;
                 else
@@ -181,6 +182,10 @@ public class ConnectionManager {
                     act.receiving.append(act.getString(R.string.connection_established));
                 }
             });
+
+            // should call server_sock.close() so we stop listening
+            // for incoming calls as we already have an established
+            // connection
 
             acting_as_server = false;
             connected = true;
