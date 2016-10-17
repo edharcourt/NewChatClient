@@ -27,7 +27,6 @@ public class MainActivity extends Activity {
         receiving = (TextView) findViewById(R.id.receiving_text);
         uiThreadHandler = new Handler();
 
-        cm = new ConnectionManager(MainActivity.this, uiThreadHandler);
 
         connect.setOnClickListener(new View.OnClickListener() {
 
@@ -53,10 +52,15 @@ public class MainActivity extends Activity {
             }
         });
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        cm = new ConnectionManager(MainActivity.this, uiThreadHandler);
         new Thread(cm.server_thread).start();
         new Thread(cm.reader).start();
         new Thread(cm.writer).start();
     }
-
-
 }

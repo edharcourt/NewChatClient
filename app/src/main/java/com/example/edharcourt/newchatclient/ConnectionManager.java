@@ -19,20 +19,35 @@ import java.net.SocketException;
 
 public class ConnectionManager {
 
+    private final String LOG_TAG = ConnectionManager.class.getName();
+
     MainActivity act = null;
     Handler uiThread = null;
+
+    // If not null then this is the IP address
+    // of the device we "called".
     String ipaddr = null;
 
+    // This is the socker connecting the two devices.
     Socket sock = null;
+
+    // non null if this is acting as a server
     ServerSocket server_sock = null;
 
-    // if this is acting as a client
+    // reading from otyher device
     BufferedReader from = null;
+
+    // printing to other device
     PrintWriter to = null;
+
     boolean acting_as_server = false;
-    private final String LOG_TAG = ConnectionManager.class.getName();
     boolean connected = false;
 
+    /**
+     *
+     * @param act - Activity that created this Connection
+     * @param uiThread - handler attached to the UI thread
+     */
     public ConnectionManager(MainActivity act, Handler uiThread) {
         this.connected = false;
         this.act = act;
@@ -178,6 +193,8 @@ public class ConnectionManager {
     Runnable reader = new Runnable() {
         @Override
         public void run() {
+
+            // wiat for a connection
             while (!connected)
                 synchronized (ConnectionManager.this) {
                     try {
@@ -208,9 +225,12 @@ public class ConnectionManager {
         }
     };
 
+
     Runnable writer = new Runnable() {
         @Override
         public void run() {
+
+            // wait for a connection
             while (!connected)
                 synchronized (ConnectionManager.this) {
                     try {
